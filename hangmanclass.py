@@ -38,8 +38,9 @@ man_hanging = ['''
 
 class Hangman:
     def __init__(self):
-        self.wordlist = ['garrapolo', 'rice', 'williams', 'kittle']  
-
+        self.wordlist = ['garrapolo', 'rice', 'williams', 'kittle'] 
+        self.turns = 12 
+        self.guesses = ''
     
     def choose_word(self): #self refers to the object Hangman
          word_index = random.randint(0,len(self.wordlist)-1)
@@ -81,6 +82,34 @@ class Hangman:
           else:
               return guess
 
+
+    def run(self):
+        print('rocks')
+        print('self.turns',self.turns)
+        while self.turns > 0:
+            failed = 0
+            for char in self.hidden_word:
+                if char in self.guesses:
+                    print(char)
+                else:
+                    print("_")
+                    failed += 1
+                    
+                if failed == 0:
+                    print("You Win")
+                    print("The word is: ", self.hidden_word)
+                    break
+            guess = input("guess a character:")
+            self.guesses += guess
+            if guess not in self.hidden_word:
+                self.turns -= 1
+                print("Wrong")
+                print("You have", + self.turns, 'more guesses')
+            if self.turns == 0:
+                    print("You Lose")
+
+
+
 # print('H A N G M A N')
 # missedLetters = ''
 # correctLetters = ''
@@ -118,16 +147,19 @@ class Hangman:
     #                the word was "' + secretWord + '"')
     #          gameIsDone = True
 h1 = Hangman() #variable assignment
-print(h1.choose_word()) 
+print(h1.choose_word())
+h1.run() 
 #calling split method of string which evaluates to  list 
 # passing list to a call of choose word, your passing the result of that call to print  
 #nested
-print(h1.word_index) #printing attributes of a object 
+print(h1.hidden_word) #printing attributes of a object 
 h2 = Hangman()
 print(h2.choose_word())
-print(h2.word_index)
+print(h2.hidden_word)
 #pass in the wordlist twice although needs to be changed, passs first when creating
 #  object then pass again when calling chooseword we want to reduce that we 
 # want to not repeat, so we want to get rid of passing in the wordlist a second time
+
+ 
 
     
